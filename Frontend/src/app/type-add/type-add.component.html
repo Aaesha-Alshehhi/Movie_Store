@@ -1,0 +1,20 @@
+<div class="type-form-container">
+    <h2>Add New Type</h2>
+    
+    <form [formGroup]="typeForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label>Type Name</label>
+        <input formControlName="typeName" class="form-control">
+        <div *ngIf="typeForm.get('typeName')?.invalid && typeForm.get('typeName')?.touched" class="error">
+          Type name is required
+        </div>
+      </div>
+  
+      <button type="submit" class="btn btn-primary" [disabled]="!typeForm.valid">
+        Create Type
+      </button>
+      <button type="button" class="btn btn-secondary" (click)="router.navigate(['/types'])">
+        Cancel
+      </button>
+    </form>
+  </div>

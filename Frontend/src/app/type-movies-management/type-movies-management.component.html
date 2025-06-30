@@ -1,0 +1,71 @@
+<div class="type-details-container">
+    <div *ngIf="isLoading" class="loading">
+      Loading type details...
+    </div>
+  
+    <div *ngIf="!isLoading && type" class="details-view">
+      <!-- Type Details Table -->
+      <div class="type-info">
+        <h2>Type Details</h2>
+        <table class="details-table">
+          <tr>
+            <th>Type ID</th>
+            <td>{{ type.typeID }}</td>
+          </tr>
+          <tr>
+            <th>Type Name</th>
+            <td>{{ type.typeName }}</td>
+          </tr>
+        </table>
+      </div>
+  
+      <div class="movies-section">
+        <div class="section-header">
+          <h2>Movies in This Type</h2>
+          <button (click)="addNewMovie()" class="btn btn-primary">
+            Add Movie
+          </button>
+        </div>
+        
+        <div class="movie-list-container justify-content-center">
+            <table class="movie-table">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Name</th>
+                  <th>Director</th>
+                  <th>Year</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let movie of movies">
+                  <td>{{ movie.movieID }}</td>
+                  <td>{{ movie.name }}</td>
+                  <td>{{ movie.director }}</td>
+                  <td>{{ movie.publicationYear }}</td>
+                  <td class="actions">
+                    <button [routerLink]="['/movies', movie.movieID, 'edit']" class="btn-edit">
+                      Edit
+                    </button>
+                    <button (click)="onDeleteMovie(movie.movieID)" 
+                            class="btn-delete"
+                            [disabled]="isDeleting && currentDeletingId === movie.movieID">
+                      {{ (isDeleting && currentDeletingId === movie.movieID) ? 'Deleting...' : 'Delete' }}
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          
+            <div *ngIf="movies.length === 0" class="no-movies">
+              No movies found for this type.
+            </div>
+          </div>
+      </div>
+    </div>
+  
+    <button (click)="router.navigate(['/types'])" class="btn btn-back">
+      Back to Types
+    </button>
+  </div>

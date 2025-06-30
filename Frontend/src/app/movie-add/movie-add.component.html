@@ -1,0 +1,56 @@
+<div class="movie-form-container">
+    <h2>Add New Movie</h2>
+    
+    <form [formGroup]="movieForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label>Type</label>
+        <select [(ngModel)]="selectedTypeId" [ngModelOptions]="{standalone: true}" class="form-control" required>
+          <option *ngFor="let type of types" [value]="type.typeID">{{type.typeName}}</option>
+        </select>
+      </div>
+  
+      <div class="form-group">
+        <label>Movie Name</label>
+        <input formControlName="name" class="form-control">
+        <div *ngIf="movieForm.get('name')?.invalid && movieForm.get('name')?.touched" class="error">
+          Name is required
+        </div>
+      </div>
+  
+      <div class="form-group">
+        <label>Description</label>
+        <textarea formControlName="description" class="form-control"></textarea>
+      </div>
+  
+      <div class="form-group">
+        <label>Publication Year</label>
+        <input type="number" formControlName="publicationYear" class="form-control">
+        <div *ngIf="movieForm.get('publicationYear')?.invalid && movieForm.get('publicationYear')?.touched" class="error">
+          Valid year is required (1900-{{currentYear}})
+        </div>
+      </div>
+  
+      <div class="form-group">
+        <label>Director</label>
+        <input formControlName="director" class="form-control">
+        <div *ngIf="movieForm.get('director')?.invalid && movieForm.get('director')?.touched" class="error">
+          Director is required
+        </div>
+      </div>
+  
+      <div class="form-group">
+        <label>Price</label>
+        <input type="number" step="0.01" formControlName="price" class="form-control">
+        <div *ngIf="movieForm.get('price')?.invalid && movieForm.get('price')?.touched" class="error">
+          Valid price is required
+        </div>
+      </div>
+  
+      <button type="submit" class="btn btn-primary" [disabled]="!movieForm.valid || !selectedTypeId">
+        Add Movie
+      </button>
+      <button type="button" class="btn btn-secondary" (click)="router.navigate(['/types'])">
+        Cancel
+      </button>
+    </form>
+  </div>

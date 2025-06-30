@@ -1,0 +1,50 @@
+<div class="movie-catalog">
+    <div class="filter-controls">
+      <!-- Search Bar -->
+      <div class="search-bar">
+        
+      </div>
+      
+      
+      <div class="type-filter">
+        
+      </div>
+    </div>
+  
+    <!-- Loading Indicator -->
+    <div *ngIf="isLoading" class="loading">
+      Loading movies...
+    </div>
+  
+    <!-- Movie Grid -->
+    <div *ngIf="!isLoading" class="movie-grid">
+      <div *ngFor="let movie of movies" class="movie-card">
+        <img [src]="getSafeImage(movie.coverPhoto)" [alt]="movie.name" (error)="handleImageError($event)" class="movie-poster">
+        <div class="movie-details">
+          <h3>{{ movie.name }}</h3>
+          <p>{{ movie.director }} • {{ movie.publicationYear | date:'yyyy' }}</p>
+          <div class="movie-rating" *ngIf="movie.averageRating > 0">
+            Rating: {{ movie.averageRating | number:'1.1-1' }}/5
+          </div>
+          <div class="movie-price">
+            {{ movie.price | currency }}
+          </div>
+          <div class="movie-actions">
+          <button (click)="addMovieToCart(movie.movieID)" class="butn">Add to Cart</button>
+          <button (click)="viewRatings(movie.movieID)" class="butn">View Ratings</button>
+        </div>
+        </div>
+      </div>
+    </div>
+  
+    <div *ngIf="!isLoading && filteredMovies.length === 0" class="no-results">
+        <p>No movies found matching your criteria.</p>
+        <div *ngIf="selectedType">
+          <p class="debug-info">Debug: Selected type - {{ selectedType }}</p>
+          <p class="debug-info">Available types in movies:</p>
+          <ul>
+            <li *ngFor="let type of getUniqueTypes()">{{ type }}</li>
+          </ul>
+        </div>
+      </div>
+  </div>

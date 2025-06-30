@@ -1,0 +1,47 @@
+<div class="account-carts-container">
+    <h2>{{ accountFullName }}'s Cart</h2>
+    
+    <div *ngIf="isLoading" class="loading">
+      Loading cart items...
+    </div>
+  <!--
+    <button (click)="addNewCart()" class="btn btn-primary mb-3">
+      Add New Cart Item
+    </button>
+  -->
+    <div *ngIf="!isLoading">
+      <div *ngIf="cartItems.length === 0" class="alert alert-info">
+        No cart items found for this account.
+      </div>
+  
+      <table *ngIf="cartItems.length > 0" class="table table-striped">
+        <thead>
+          <tr>
+            <th>Movie</th>
+            <th>Quantity</th>
+            <th>Purchase Date</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of cartItems">
+            <td>{{ getMovieName(item.movie) }}</td>
+            <td>{{ item?.quantity || 0 }}</td>
+            <td>{{ (item?.purchaseDate | date) || '' }}</td>
+            <td><!--
+              <button (click)="editCart(item.cartID!)" class="btn btn-sm btn-warning mr-2">
+                Edit
+              </button>-->
+              <button (click)="deleteCart(item.cartID!)" class="btn btn-sm btn-danger">
+                Delete
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  
+    <button (click)="router.navigate(['/accounts'])" class="btn btn-secondary mt-3">
+      Back to Accounts
+    </button>
+  </div>

@@ -1,0 +1,45 @@
+<div class="account-form-container">
+    <h2>Add New Account</h2>
+    
+    <form [formGroup]="accountForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label>First Name</label>
+        <input formControlName="firstName" class="form-control">
+        <div *ngIf="accountForm.get('firstName')?.invalid && accountForm.get('firstName')?.touched" class="error">
+          First name is required
+        </div>
+      </div>
+  
+      <div class="form-group">
+        <label>Last Name</label>
+        <input formControlName="lastName" class="form-control">
+        <div *ngIf="accountForm.get('lastName')?.invalid && accountForm.get('lastName')?.touched" class="error">
+          Last name is required
+        </div>
+      </div>
+  
+      <div class="form-group">
+        <label>
+          <input type="checkbox" formControlName="rememberMe"> Remember Me
+        </label>
+      </div>
+  
+      <div class="form-group">
+        <label>Password</label>
+        <input type="password" formControlName="password" class="form-control">
+        <div *ngIf="accountForm.get('password')?.errors?.['required'] && accountForm.get('password')?.touched" class="error">
+          Password is required
+        </div>
+        <div *ngIf="accountForm.get('password')?.errors?.['minlength']" class="error">
+          Password must be at least 6 characters
+        </div>
+      </div>
+  
+      <button type="submit" class="btn btn-primary" [disabled]="!accountForm.valid">
+        Create Account
+      </button>
+      <button type="button" class="btn btn-secondary" (click)="router.navigate(['/accounts'])">
+        Cancel
+      </button>
+    </form>
+  </div>

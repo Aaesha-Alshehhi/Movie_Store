@@ -1,0 +1,35 @@
+<div class="cart-add-container">
+  <h2>Add New Cart Item</h2>
+  
+  <!-- Remove formGroup and use template-driven form -->
+  <form (ngSubmit)="onSubmit()" #cartForm="ngForm">
+    <div class="form-group">
+      <label>Movie</label>
+      <select [(ngModel)]="cartItem.movie" name="movie" class="form-control" required>
+        <option *ngFor="let movie of movies" [value]="movie.movieID">
+          {{ movie.name }}
+        </option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label>Quantity</label>
+      <input type="number" [(ngModel)]="cartItem.quantity" name="quantity" 
+             min="1" class="form-control" required>
+    </div>
+
+    <div class="form-group">
+      <label>Purchase Date</label>
+      <input type="date" [(ngModel)]="cartItem.purchaseDate" name="purchaseDate" 
+             class="form-control" required>
+    </div>
+
+    <button type="submit" class="btn btn-primary" [disabled]="!cartForm.valid">
+      Add Cart Item
+    </button>
+    <button type="button" class="btn btn-secondary" 
+            (click)="router.navigate(['/accounts', accountId, 'carts'])">
+      Cancel
+    </button>
+  </form>
+</div>

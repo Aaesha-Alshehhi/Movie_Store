@@ -1,0 +1,39 @@
+<div class="type-management-container">
+  <h2>Type Management</h2>
+  
+  <div *ngIf="isLoading" class="loading">
+    Loading types...
+  </div>
+
+  <button routerLink="/types/add" class="btn btn-primary">
+    Add New Type
+  </button>
+
+  <table *ngIf="!isLoading" class="type-table">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Type Name</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let type of types">
+        <td>{{ type.typeID }}</td>
+        <td>
+          <button (click)="viewTypeDetails(type.typeID!)" class="btn-link">
+            {{ type.typeName }}
+          </button>
+        </td>
+        <td class="actions">
+          <button [routerLink]="['/types/edit', type.typeID]" class="btn-edit">
+            Edit
+          </button>
+          <button (click)="deleteType(type.typeID!)" class="btn-delete">
+            Delete
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

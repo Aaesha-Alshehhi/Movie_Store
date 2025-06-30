@@ -1,0 +1,32 @@
+<h2>Your Cart</h2>
+<div *ngIf="cartItems.length === 0">Cart is empty.</div>
+<table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Movie</th>
+        <th>Quantity</th>
+        <th>Purchase Date</th>
+        <th>Delete</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of cartItems">
+        <td>{{ item.movie.name }}</td>
+  
+        <td>
+          <button class="btn btn-sm btn-outline-secondary" (click)="decreaseQuantity(item)">-</button>
+          <span class="mx-2">{{ item.quantity }}</span>
+          <button class="btn btn-sm btn-outline-primary" (click)="increaseQuantity(item)">+</button>
+        </td>
+  
+        <td>{{ item.purchaseDate | date:'shortDate' }}</td>
+  
+        <td>
+          <button class="btn btn-sm btn-danger" (click)="removeItem(item)">
+            <i class="fas fa-trash"></i>
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  

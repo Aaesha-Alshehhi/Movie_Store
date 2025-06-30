@@ -1,0 +1,48 @@
+<div class="movie-ratings-container">
+    <div *ngIf="isLoading" class="loading">Loading movie details...</div>
+  
+    <div *ngIf="!isLoading && movie" class="movie-details">
+      <h2>{{ movie.name }} Ratings</h2>
+      
+      <div class="movie-info">
+        <p><strong>Director:</strong> {{ movie.director }}</p>
+        <p><strong>Year:</strong> {{ movie.publicationYear }}</p>
+        <p><strong>Average Rating:</strong> {{ calculatedAverage | number:'1.1-1' }}/5</p>
+      </div>
+  
+      <button (click)="addRating()" class="btn btn-primary">Add Rating</button>
+      <div class="ratings-container">
+        <h3>User Ratings ({{ ratings.length }})</h3>
+        
+        <div *ngIf="ratings.length === 0" class="no-ratings">
+          No ratings yet for this movie.
+        </div>
+      
+        <table *ngIf="ratings.length > 0" class="ratings-table">
+          <thead>
+            <tr>
+              <th>Rating</th>
+              <th>Comment</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let rating of ratings">
+              <td>{{ rating.rate }}/5</td>
+              <td>{{ rating.comment || 'No comment' }}</td>
+              <td class="actions">
+                <button (click)="editRating(rating)" class="btn-edit">
+                  <i class="fas fa-edit"></i> Edit
+                </button>
+                <button (click)="rating.ratingID && deleteRating(rating.ratingID)" class="btn-delete" [disabled]="!rating.ratingID">
+                  <i class="fas fa-trash"></i> Delete
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+  
+      <button (click)="goBack()" class="btn btn-back">Back to Movies</button>
+    </div>
+  </div>
