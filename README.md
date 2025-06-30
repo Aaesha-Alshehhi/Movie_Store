@@ -248,17 +248,6 @@ COPY ./dist/movie-app/browser /usr/share/nginx/html
 
 ---
 
-## Project Structure
-
-```bash
-movie-store-app/
-├── backend/         # Spring Boot backend
-├── frontend/        # Angular frontend
-├── README.md
-```
-
----
-
 ## Authors
 
 * Aaesha Rashed Alshehhi
