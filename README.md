@@ -251,7 +251,7 @@ COPY ./dist/movie-app/browser /usr/share/nginx/html
 ## Authors
 
 * Aaesha Rashed Alshehhi
-* CIA 4133 Group Project (2024)
+* CIA 4133 - Advanced Application Development - Group Project (2025)
 
 ---
 
